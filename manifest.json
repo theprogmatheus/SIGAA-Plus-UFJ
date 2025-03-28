@@ -19,7 +19,7 @@
                 "https://sigaa.sistemas.ufj.edu.br/*"
             ],
             "js": [
-                "sigaa.js"
+                "./assets/js/sigaa.js"
             ]
         }
     ]
