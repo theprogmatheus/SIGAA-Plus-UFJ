@@ -3,8 +3,24 @@
     "description": "Adiciona novas funcionalidades no SIGAA da UFJ.",
     "version": "1.0.0",
     "manifest_version": 3,
+    "permissions": [
+        "scripting"
+    ],
+    "host_permissions": [
+        "https://sigaa.sistemas.ufj.edu.br/*"
+    ],
     "action": {
         "default_popup": "./html/index.html",
         "default_icon": "./assets/img/logo.png"
-    }
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://sigaa.sistemas.ufj.edu.br/*"
+            ],
+            "js": [
+                "sigaa.js"
+            ]
+        }
+    ]
 }
