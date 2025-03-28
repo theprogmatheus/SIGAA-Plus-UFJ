@@ -3,7 +3,6 @@
 */
 function scrap() {
     let disciplinas = document.getElementById("turmas-portal")?.children[2]?.children[1];
-    console.log(disciplinas)
     if (disciplinas) {
         let resultObject = [];
         for (let element of disciplinas.children) {
