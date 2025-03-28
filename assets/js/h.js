@@ -78,3 +78,108 @@ const TURNS = {// M, T, N
         }
     } // 19:00-19:50, 19:50-20:40, 21:00-21:50, 21:50-22:40
 }
+
+
+function parse(input) {
+
+    console.log(`Processando o horário: ${input}`)
+
+    let o = p(input);
+    if (o) {
+        console.log(`Horário processado:`)
+        console.log(o)
+
+        let days = o.days;
+        let schedules = o.schedules;
+
+
+        let stringBuilder = "";
+
+        for (let i = 0; i < days.length; i++) {
+            let day = days[i];
+            if (i != 0) {
+                stringBuilder += ", ";
+            }
+            stringBuilder += day;
+        }
+
+        stringBuilder += " ";
+
+        for (let i = 0; i < schedules.length; i++) {
+            let schedule = schedules[i];
+            if (i != 0) {
+                stringBuilder += ", ";
+            }
+            stringBuilder += `das ${schedule.min} as ${schedule.max}`;
+        }
+
+        return stringBuilder;
+    }
+
+    return input;
+}
+
+function p(input) {
+
+    if (!isValidSIGAASchedule(input)) return null;
+
+    let turn;
+    let days = [];
+    let schedules = [];
+
+    for (let i = 0; i < input.length; i++) {
+        let theChar = input.charAt(i);
+
+        if (isValidInteger(theChar)) {
+
+            if (turn) {
+                let schedule = { ...turn[theChar] };
+                if (schedule && Object.keys(schedule).length > 0) {
+
+
+                    if (schedules.length > 0) {
+                        let lastSchedule = schedules[schedules.length - 1]
+
+                        if (lastSchedule.max == schedule.min) { // horario seguido do outro
+                            schedules[schedules.length - 1].max = schedule.max;
+                        } else {
+                            schedules.push(schedule)
+                        }
+                    } else {
+                        schedules.push(schedule)
+                    }
+                }
+
+
+            } else {
+                let day = DAYS[theChar];
+                if (day)
+                    days.push(day)
+            }
+
+        } else {
+            turn = TURNS[theChar];
+        }
+    }
+    return { days, schedules };
+}
+
+function isValidSIGAASchedule(scheduleString) {
+    const regex = /^\d+[MTN]\d+$/;
+    return regex.test(scheduleString);
+}
+
+function isValidInteger(integer) {
+    const regex = /^\d+$/;
+    return regex.test(integer);
+}
+
+// Essa parte do código serve para testes através do Node.js
+/*
+const args = process.argv.slice(2);
+if (args.length > 0) {
+    console.log(parse(args[0]))
+} else {
+    console.log("Informe um horário no formato do SIGAA");
+}
+*/
