@@ -64,6 +64,11 @@ function render(data) {
 
 
             contentDiv.appendChild(rowDiv);
+
         });
+
+        let noSigaaP = document.getElementById("no-sigaa");
+        if (noSigaaP)
+            noSigaaP.remove();
     }
 }
