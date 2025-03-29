@@ -80,7 +80,7 @@ const TURNS = {// M, T, N
 }
 
 
-function parse(input) {
+export function parse(input) {
 
     console.log(`Processando o horário: ${input}`)
 
@@ -119,7 +119,7 @@ function parse(input) {
     return input;
 }
 
-function p(input) {
+export function p(input) {
 
     if (!isValidSIGAASchedule(input)) return null;
 

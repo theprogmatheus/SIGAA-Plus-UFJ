@@ -26,4 +26,13 @@ function scrap() {
     }
 }
 
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.action === "scrap.sigaa") {
+        const data = scrap();
+        sendResponse({ payload: data });
+    }
+    return true; // Necessário para permitir resposta assíncrona
+});
+
+
 console.log(scrap())
